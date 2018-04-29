@@ -21,16 +21,40 @@ public class EvaluatorTest {
 
     @Test
     public void 각_플레이어는_16이하면_히트한다() {
-
+        Deck deck = new Deck(1);
+        Game game = new Game(deck);
+        game.addPlayer("test1", 5000);
+        game.addPlayer("test2", 3000);
+        for (String PlayerName : game.getPlayerList().keySet()) {
+            if(game.getPlayerList().get(PlayerName).getHand().getTotalScore() <= 16){
+                assertThat(game.getPlayerList().get(PlayerName).getIsStay(),is(false));
+            }
+        }
     }
 
     @Test
     public void 블랙잭이나오면_2배로_보상받고_해당_플레이어의_턴은_끝난다() {
-
+        Deck deck = new Deck(1);
+        Game game = new Game(deck);
+        game.addPlayer("test1", 5000);
+        game.addPlayer("test2", 3000);
+        for (String PlayerName : game.getPlayerList().keySet()) {
+            if(game.getPlayerList().get(PlayerName).getHand().getTotalScore() == 21){
+                assertThat(game.getPlayerList().get(PlayerName).getBalance(),is(game.getPlayerList().get(PlayerName).getBalance()+(game.getPlayerList().get(PlayerName).getCurrentBet())*2));
+            }
+        }
     }
 
     @Test
     public void 각_플레이어는_17이상이면_스테이한다() {
-
+        Deck deck = new Deck(1);
+        Game game = new Game(deck);
+        game.addPlayer("test1", 5000);
+        game.addPlayer("test2", 3000);
+        for (String PlayerName : game.getPlayerList().keySet()) {
+            if(game.getPlayerList().get(PlayerName).getHand().getTotalScore() >= 17){
+                assertThat(game.getPlayerList().get(PlayerName).getIsStay(),is(true));
+            }
+        }
     }
 }
