@@ -19,4 +19,5 @@ public class CardTest {
     public void 카드랭크_14는_생성_불가() {
         new Card(14, Suit.CLUBS);
     }
+
 }
